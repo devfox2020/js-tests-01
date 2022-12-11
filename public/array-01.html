@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-tests-01::objects-01</title>
+</head>
+<body>
+    <h1>js-tests-01::objects-01</h1>
+    <script>
+
+        function LogEval(code) {
+            console.log(code, eval(code));
+        }
+
+        function ArrayAsObject() {
+            let arr1 = [
+                'ARR1',
+                function() { return this.m1; }
+            ];
+            arr1['m1'] = 'M1';
+
+            arr1['fn2'] = function() { return this[0]; }
+            arr1['fn3'] = () => { return this[0]; }
+
+            function fn4() {
+                return this[0];
+            }
+            arr1['fn4'] = fn4;
+
+            const arr1_fn4 = fn4.bind(arr1);
+
+            console.log("arr1", arr1);
+            console.log("arr1[1]()", arr1[1]());
+            console.log("arr1.fn2()", arr1.fn2());
+            console.log("arr1.fn3()", arr1.fn3());
+            console.log("");
+            console.log("arr1.fn4()", arr1.fn4());
+            console.log("fn4.call(arr1)", fn4.call(arr1));
+            console.log("arr1_fn4()", arr1_fn4());
+
+        }
+
+        ArrayAsObject();
+
+    </script>
+    
+</body>
+</html>
